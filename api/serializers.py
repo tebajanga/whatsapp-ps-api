@@ -8,8 +8,17 @@ class InboxSerializer(serializers.ModelSerializer):
         """ Meta class to map serializer's fields with the model fields."""
         model = Inbox
         fields = ('id', 'category', 'mimetype', 'sender', 'body','processed',
-                    'processed_at')
-        read_only_fields = ('created_at',)
+                    'processed_at','created_at')
+        #read_only_fields = ('created_at','id')
+
+class InboxPostSerializer(serializers.ModelSerializer):
+    """ Serializer to map the Model instance into JSON format. """
+
+    class Meta:
+        """ Meta class to map serializer's fields with the model fields."""
+        model = Inbox
+        fields = ('id', 'category', 'mimetype', 'sender', 'body')
+
 
 
 class OutboxSerializer(serializers.ModelSerializer):
@@ -19,5 +28,13 @@ class OutboxSerializer(serializers.ModelSerializer):
         """ Meta class to map serializer's fields with the model fields."""
         model = Outbox
         fields = ('id', 'category', 'mimetype', 'receiver', 'chat_found', 'body',
-                'processed', 'processed_at')
-        read_only_fields = ('created_at',)
+                'processed', 'processed_at', 'created_at')
+        #read_only_fields = ('created_at',)
+
+class OutboxPostSerializer(serializers.ModelSerializer):
+    """ Serializer to map the Model instance into JSON format. """
+
+    class Meta:
+        """ Meta class to map serializer's fields with the model fields."""
+        model = Outbox
+        fields = ('id', 'category', 'mimetype', 'receiver', 'body')
