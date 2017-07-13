@@ -80,16 +80,6 @@ DATABASE_URL = os.environ.get('DATABASE_URL', 'mysql://yowsup:yowsup@localhost/w
 DATABASES['default'] = dj_database_url.parse(DATABASE_URL)
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
-'''DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'whatsapp_ps',
-        'USER': 'dev',
-        'PASSWORD': 'dev',
-        'HOST': 'localhost'
-    }
-}
-'''
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
