@@ -1,1 +1,1 @@
-web: python manage.py collectstatic --noinput;gunicorn whatsapp_ps_api.wsgi
+web: python manage.py collectstatic;gunicorn whatsapp_ps_api.wsgi
