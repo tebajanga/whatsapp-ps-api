@@ -3,7 +3,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from .views import OutboxCreateView,OutboxDetailsView
 
 urlpatterns = {
-    url(r'^$', 'api.views.inbox', name='inbox'),
+    url(r'^$', 'api.views.outbox', name='outbox'),
     url(r'^inbox/$', 'api.views.inbox', name='inbox'),
     url(r'^inbox/(?P<pk>[0-9]+)$', 'api.views.inbox', name='inbox'),
     url(r'^outbox/$', 'api.views.outbox', name='outbox'),
