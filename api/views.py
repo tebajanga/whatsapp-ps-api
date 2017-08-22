@@ -11,7 +11,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.status import HTTP_401_UNAUTHORIZED
 from rest_framework.authtoken.models import Token
+import logging
 
+logger = logging.getLogger(__name__)
 
 class OutboxCreateView(generics.ListCreateAPIView):
     """ """
@@ -201,7 +203,8 @@ def outbox(request, pk=None):
 def login(request):
     username = request.data.get("username")
     password = request.data.get("password")
-
+    logger.info('Authenticating user...')
+    print 'Auth user...'
     user = authenticate(username=username, password=password)
     if not user:
         return Response({"error": "Login failed"}, status=HTTP_401_UNAUTHORIZED)

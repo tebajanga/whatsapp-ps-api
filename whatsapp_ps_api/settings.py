@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'api',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'whapidpro',
+    'django_celery_beat',
 ]
 
 
@@ -91,6 +93,9 @@ DATABASES = {}
 DATABASE_URL = os.environ.get('DATABASE_URL', 'mysql://yowsup:yowsup@localhost/whatsapp_ps')
 DATABASES['default'] = dj_database_url.parse(DATABASE_URL)
 DATABASES['default']['ATOMIC_REQUESTS'] = True
+DATABASES['default']['OPTIONS'] = {'charset': 'utf8mb4'}
+DATABASES['default']['ENGINE'] = 'django.db.backends.mysql'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -137,3 +142,33 @@ STATICFILES_DIRS = (
  os.path.join(PROJECT_ROOT, 'static'),
 )
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+# CELERY SETTINGS
+BROKER_URL = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+CELERYBEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_IMPORTS = {
+    'whapidpro.tasks',
+}
+
+
+#Whapidpro settings
+RAPIDPRO_ENDPOINT = 'http://localhost:8002'
+RAPIDPRO_API_TOKEN = 'ff5d2cd64f133ce9910c283acb8bbfcedcbf8d27'
+RAPIDPRO_FLOWTRIGGER_KEYWORDS = (
+    'Ripoti',
+    'Report'
+)
+CATEGORY_FLOW_MAP = {
+    'afya': '2575336e-e8d2-41a7-8f97-2cec7abd572b',
+}
+CACHES = {
+   'default': {
+      'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+      'LOCATION': '/var/tmp/django_cache',
+      'TIMEOUT': 180, #3 minutes cache expiry
+   }
+}
